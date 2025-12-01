@@ -1,0 +1,12 @@
+{
+  "name": "statement_confirmation",
+  "message": "Processing your mini statement...",
+  "action": "con",
+  "handler": "process_statement_request",
+  "metadata": {
+    "requiresAuth": true,
+    "requiresAccounts": true,
+    "apiCall": "STATEMENT",
+    "maxRecords": 10
+  }
+}

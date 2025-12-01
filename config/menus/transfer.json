@@ -1,0 +1,36 @@
+{
+  "name": "transfer",
+  "message": "Select Transfer Type:",
+  "action": "con",
+  "options": [
+    {
+      "text": "Sidian Bank Account",
+      "nextMenu": "transfer_sidian",
+      "store": {
+        "transfer_type": "sidian"
+      }
+    },
+    {
+      "text": "Other Bank (PesaLink)",
+      "nextMenu": "transfer_pesalink",
+      "store": {
+        "transfer_type": "pesalink"
+      }
+    },
+    {
+      "text": "Mobile Money",
+      "nextMenu": "transfer_mobilemoney",
+      "store": {
+        "transfer_type": "mobilemoney"
+      }
+    }
+  ],
+  "navigation": "0. Back\n00. Home\n000. Exit",
+  "onBack": "mobilebanking",
+  "onHome": "mobilebanking",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "requiresAccounts": true
+  }
+}

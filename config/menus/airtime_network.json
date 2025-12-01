@@ -1,0 +1,39 @@
+{
+  "name": "airtime_network",
+  "message": "Select Network:",
+  "action": "con",
+  "options": [
+    {
+      "text": "Safaricom",
+      "nextMenu": "airtime_amount",
+      "store": {
+        "network": "Safaricom",
+        "merchantId": "CSSAFCOMKE"
+      }
+    },
+    {
+      "text": "Airtel",
+      "nextMenu": "airtime_amount",
+      "store": {
+        "network": "Airtel",
+        "merchantId": "CSAIRTELKE"
+      }
+    },
+    {
+      "text": "Telkom",
+      "nextMenu": "airtime_amount",
+      "store": {
+        "network": "Telkom",
+        "merchantId": "CSORANGEKE"
+      }
+    }
+  ],
+  "navigation": "0. Back\n00. Home\n000. Exit",
+  "onBack": "airtime",
+  "onHome": "mobilebanking",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "dependsOn": ["airtime_mode"]
+  }
+}

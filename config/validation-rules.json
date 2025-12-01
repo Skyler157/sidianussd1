@@ -1,0 +1,127 @@
+{
+  "msisdn": {
+    "description": "Mobile number validation rules",
+    "patterns": {
+      "kenya": "^254[0-9]{9}$",
+      "local": "^0[0-9]{9}$"
+    },
+    "prefixes": {
+      "safaricom": ["25470", "25471", "25472", "25479"],
+      "airtel": ["25473", "25474", "25475", "25476", "25410"],
+      "telkom": ["25477"]
+    },
+    "validationFunctions": [
+      "validateLength",
+      "validatePrefix",
+      "validateNetwork"
+    ],
+    "errorMessages": {
+      "invalidLength": "Mobile number must be 10 digits",
+      "invalidPrefix": "Invalid mobile number prefix",
+      "invalidNetwork": "Invalid network for this service"
+    }
+  },
+  "amount": {
+    "description": "Amount validation rules",
+    "patterns": {
+      "numeric": "^[0-9]+$",
+      "decimal": "^[0-9]+(\\.[0-9]{1,2})?$"
+    },
+    "limits": {
+      "min": 1,
+      "max": 1000000,
+      "airtime": {
+        "min": 10,
+        "max": 5000
+      },
+      "withdraw": {
+        "min": 100,
+        "max": 70000
+      },
+      "transfer": {
+        "min": 100,
+        "max": 100000
+      }
+    },
+    "validationFunctions": [
+      "validateNumeric",
+      "validateMin",
+      "validateMax",
+      "validateDailyLimit"
+    ]
+  },
+  "pin": {
+    "description": "PIN validation rules",
+    "patterns": {
+      "numeric": "^[0-9]{4,6}$"
+    },
+    "validationFunctions": [
+      "validateLength",
+      "validateNumeric",
+      "validateNotSequential",
+      "validateNotRepeating"
+    ],
+    "security": {
+      "maxAttempts": 3,
+      "lockoutDuration": 300,
+      "allowSequential": false,
+      "allowRepeating": false
+    }
+  },
+  "date": {
+    "description": "Date validation rules",
+    "formats": [
+      "DDMMYYYY",
+      "YYYY-MM-DD",
+      "DD/MM/YYYY"
+    ],
+    "validationFunctions": [
+      "validateFormat",
+      "validateNotFuture",
+      "validateNotTooOld"
+    ],
+    "constraints": {
+      "maxFutureDays": 0,
+      "maxPastDays": 3650
+    }
+  },
+  "account": {
+    "description": "Bank account validation",
+    "patterns": {
+      "numeric": "^[0-9]+$",
+      "withCheckDigit": "^[0-9]{8,15}$"
+    },
+    "validationFunctions": [
+      "validateLength",
+      "validateFormat",
+      "validateExists"
+    ]
+  },
+  "email": {
+    "description": "Email validation",
+    "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+    "validationFunctions": ["validateFormat"]
+  },
+  "name": {
+    "description": "Name validation",
+    "pattern": "^[A-Za-z\\s]{2,50}$",
+    "validationFunctions": ["validateFormat", "validateLength"]
+  },
+  "custom": {
+    "validateMsisdnNetwork": {
+      "function": "validateMsisdnForNetwork",
+      "parameters": ["msisdn", "network"],
+      "description": "Validate MSISDN for specific network"
+    },
+    "validateTransactionLimit": {
+      "function": "validateAgainstLimits",
+      "parameters": ["amount", "type", "customer"],
+      "description": "Validate transaction against customer limits"
+    },
+    "validateDailyCount": {
+      "function": "validateDailyTransactionCount",
+      "parameters": ["customer", "type"],
+      "description": "Validate daily transaction count limit"
+    }
+  }
+}

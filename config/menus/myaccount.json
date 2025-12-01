@@ -1,0 +1,43 @@
+{
+  "name": "myaccount",
+  "message": "My Account Services:",
+  "action": "con",
+  "options": [
+    {
+      "text": "Balance",
+      "nextMenu": "balance",
+      "store": {
+        "selected_service": "balance"
+      }
+    },
+    {
+      "text": "Mini Statement",
+      "nextMenu": "statement",
+      "store": {
+        "selected_service": "statement"
+      }
+    },
+    {
+      "text": "Full Statement",
+      "nextMenu": "fullstatement",
+      "store": {
+        "selected_service": "fullstatement"
+      }
+    },
+    {
+      "text": "Manage Beneficiaries",
+      "nextMenu": "beneficiary",
+      "store": {
+        "selected_service": "beneficiary"
+      }
+    }
+  ],
+  "navigation": "0. Home\n00. Exit",
+  "onBack": "mobilebanking",
+  "onHome": "mobilebanking",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "requiresAccounts": true
+  }
+}

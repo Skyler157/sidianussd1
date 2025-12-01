@@ -1,0 +1,68 @@
+{
+  "transactionLimits": {
+    "airtime": {
+      "minAmount": 10,
+      "maxAmount": 5000,
+      "dailyLimit": 10000,
+      "dailyCount": 5
+    },
+    "withdraw": {
+      "minAmount": 100,
+      "maxAmount": 70000,
+      "dailyLimit": 150000,
+      "dailyCount": 10
+    },
+    "transfer": {
+      "minAmount": 100,
+      "maxAmount": 100000,
+      "dailyLimit": 500000,
+      "dailyCount": 5
+    }
+  },
+  "validationRules": {
+    "msisdn": {
+      "pattern": "^[0-9]{10}$",
+      "prefixes": ["07", "01"],
+      "networks": {
+        "Safaricom": ["07", "01"],
+        "Airtel": ["07", "01"],
+        "Telkom": ["07"]
+      }
+    },
+    "amount": {
+      "pattern": "^[0-9]+$",
+      "min": 10,
+      "max": 1000000
+    },
+    "pin": {
+      "pattern": "^[0-9]{4,6}$"
+    },
+    "date": {
+      "format": "DDMMYYYY",
+      "minDaysPast": -365,
+      "maxDaysFuture": 0
+    }
+  },
+  "charges": {
+    "airtime": {
+      "Safaricom": 0,
+      "Airtel": 0,
+      "Telkom": 0
+    },
+    "withdraw": {
+      "0-100": 0,
+      "101-2500": 27,
+      "2501-5000": 49,
+      "5001-15000": 72,
+      "15001-35000": 135,
+      "35001+": 297
+    },
+    "balance": 0,
+    "statement": 0
+  },
+  "session": {
+    "timeout": 300,
+    "maxTransactions": 20,
+    "maxMenuHistory": 50
+  }
+}

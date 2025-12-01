@@ -1,0 +1,15 @@
+{
+  "name": "airtime_confirm",
+  "message": "Confirm Airtime Purchase:\n\nNetwork: {session.network}\nAmount: KES {session.airtime_amount}\n\n1. Confirm\n2. Cancel",
+  "action": "con",
+  "inputConfig": {
+    "validation": {
+      "type": "option",
+      "options": ["1", "2"]
+    },
+    "handler": {
+      "moduleHandler": "process_airtime_confirmation"
+    },
+    "storeKey": "confirmation"
+  }
+}

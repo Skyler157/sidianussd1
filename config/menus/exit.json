@@ -1,0 +1,9 @@
+{
+  "name": "exit",
+  "message": "Thank you for using Sidian Bank Mobile Banking. Goodbye!",
+  "action": "end",
+  "metadata": {
+    "isTerminal": true,
+    "clearSession": true
+  }
+}

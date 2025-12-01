@@ -1,0 +1,46 @@
+{
+  "GETCUSTOMER": {
+    "formId": "GETCUSTOMER",
+    "cacheKey": "customer_{msisdn}",
+    "cacheTTL": 3600,
+    "requiredFields": ["MOBILENUMBER"],
+    "successStatus": ["000"],
+    "parseFunction": "parseCustomerResponse"
+  },
+  "LOGIN": {
+    "formId": "LOGIN",
+    "requiredFields": ["LOGINMPIN", "CUSTOMERID"],
+    "successStatus": ["000", "OK"],
+    "errorMapping": {
+      "091": "Invalid Login Password",
+      "101": "PIN change required",
+      "102": "Account blocked"
+    }
+  },
+  "BALANCE": {
+    "formId": "B-",
+    "merchantId": "BALANCE",
+    "cacheKey": "balance_{customerid}_{account}",
+    "cacheTTL": 60,
+    "requiresAuth": true,
+    "chargeable": true
+  },
+  "STATEMENT": {
+    "formId": "B-",
+    "merchantId": "STATEMENT",
+    "requiresAuth": true,
+    "chargeable": true,
+    "maxRecords": 10
+  },
+  "AIRTIME_PURCHASE": {
+    "formId": "M-",
+    "action": "PAYBILL",
+    "requiresAuth": true,
+    "requiresPIN": true,
+    "networks": {
+      "Safaricom": "CSSAFCOMKE",
+      "Airtel": "CSAIRTELKE",
+      "Telkom": "CSORANGEKE"
+    }
+  }
+}

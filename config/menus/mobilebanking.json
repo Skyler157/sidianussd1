@@ -1,0 +1,89 @@
+{
+  "name": "mobilebanking",
+  "message": "Select option:",
+  "action": "con",
+  "options": [
+    {
+      "text": "My Account",
+      "nextMenu": "myaccount",
+      "store": {
+        "selected_option": "myaccount"
+      },
+      "condition": {
+        "field": "customer.accounts",
+        "operator": "exists"
+      }
+    },
+    {
+      "text": "Mobile Money",
+      "nextMenu": "mobilemoney",
+      "store": {
+        "selected_option": "mobilemoney"
+      }
+    },
+    {
+      "text": "Airtime",
+      "nextMenu": "airtime",
+      "store": {
+        "selected_option": "airtime"
+      }
+    },
+    {
+      "text": "Q-Loan",
+      "nextMenu": "loans",
+      "store": {
+        "selected_option": "loans"
+      }
+    },
+    {
+      "text": "Utility Payment",
+      "nextMenu": "bills",
+      "store": {
+        "selected_option": "bills"
+      }
+    },
+    {
+      "text": "Funds Transfer",
+      "nextMenu": "transfer",
+      "store": {
+        "selected_option": "transfer"
+      }
+    },
+    {
+      "text": "PesaLink",
+      "nextMenu": "pesalink",
+      "store": {
+        "selected_option": "pesalink"
+      }
+    },
+    {
+      "text": "Service Request",
+      "nextMenu": "services",
+      "store": {
+        "selected_option": "services"
+      }
+    },
+    {
+      "text": "Change PIN",
+      "nextMenu": "pin",
+      "store": {
+        "selected_option": "pin"
+      }
+    },
+    {
+      "text": "Exit",
+      "nextMenu": "exit",
+      "store": {
+        "selected_option": "exit"
+      }
+    }
+  ],
+  "navigation": "0. Home\n00. Exit",
+  "onBack": "home",
+  "onHome": "home",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "maxOptions": 10
+  }
+}

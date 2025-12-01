@@ -1,0 +1,23 @@
+{
+  "name": "airtime_amount",
+  "message": "Enter amount (Min: 10, Max: 5000):",
+  "action": "con",
+  "inputConfig": {
+    "validation": {
+      "type": "amount",
+      "min": 10,
+      "max": 5000,
+      "custom": "validateAirtimeAmount"
+    },
+    "storeKey": "airtime_amount",
+    "nextMenu": "airtime_confirm"
+  },
+  "navigation": "0. Back\n00. Home\n000. Exit",
+  "onBack": "airtime_network",
+  "onHome": "mobilebanking",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "dependsOn": ["network", "merchantId"]
+  }
+}

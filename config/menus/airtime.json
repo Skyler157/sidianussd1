@@ -1,0 +1,46 @@
+{
+  "name": "airtime",
+  "message": "Select Airtime Option:",
+  "action": "con",
+  "options": [
+    {
+      "text": "Own Number",
+      "nextMenu": "airtime_network",
+      "store": {
+        "airtime_mode": "own"
+      },
+      "data": {
+        "presetMsisdn": "{session.msisdn}"
+      }
+    },
+    {
+      "text": "Other Number",
+      "nextMenu": "airtime_network",
+      "store": {
+        "airtime_mode": "other"
+      }
+    },
+    {
+      "text": "Saved Beneficiary",
+      "nextMenu": "airtime_network",
+      "store": {
+        "airtime_mode": "beneficiary"
+      }
+    },
+    {
+      "text": "Manage Airtime Beneficiaries",
+      "nextMenu": "manage_airtime_beneficiary",
+      "store": {
+        "airtime_mode": "manage"
+      }
+    }
+  ],
+  "navigation": "0. Home\n00. Exit",
+  "onBack": "mobilebanking",
+  "onHome": "mobilebanking",
+  "onExit": "exit",
+  "metadata": {
+    "requiresAuth": true,
+    "module": "airtime"
+  }
+}

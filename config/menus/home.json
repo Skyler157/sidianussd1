@@ -1,0 +1,17 @@
+{
+  "name": "home",
+  "message": "Hello {customer.firstname}, welcome to SidianVIBE (Mobile Banking)\n\nPlease enter your PIN to continue.\n\nForgot your PIN? Reply with 1 to reset your PIN",
+  "action": "con",
+  "inputConfig": {
+    "validation": {
+      "type": "pin_or_option",
+      "options": ["1"]
+    },
+    "storeKey": "pin_attempt",
+    "handler": "process_pin_or_forgot"
+  },
+  "metadata": {
+    "requiresCustomer": true,
+    "isEntryPoint": true
+  }
+}
