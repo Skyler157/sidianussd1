@@ -1,0 +1,21 @@
+{
+  "name": "change_pin",
+  "message": "Change PIN\n\nEnter your current PIN to proceed:\n\n0. Back\n00. Exit",
+  "action": "con",
+  "inputConfig": {
+    "validation": {
+      "type": "pin",
+      "minLength": 4,
+      "maxLength": 6
+    },
+    "storeKey": "current_pin",
+    "errorMessage": "Invalid PIN. PIN must be 4-6 digits.",
+    "handler": "pin_validateCurrentPin"
+  },
+  "navigation": {
+    "0": "main_menu",
+    "00": "end",
+    "onBack": "main_menu",
+    "onExit": "end"
+  }
+}

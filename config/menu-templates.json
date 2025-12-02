@@ -1,0 +1,46 @@
+{
+  "account_balance_template": {
+    "name": "account_balance",
+    "message": "Account Balance\n\nFetching balance for {customer.firstname}...",
+    "action": "con",
+    "handler": "get_balance",
+    "navigation": {
+      "0": "my_account",
+      "00": "end"
+    },
+    "metadata": {
+      "requiresAuth": true,
+      "requiresActiveAccount": true,
+      "cacheKey": "balance_{customer.customerid}_{timestamp}"
+    }
+  },
+  "list_selection_template": {
+    "name": "{menu_name}",
+    "message": "{menu_title}\n\nPlease select an option:",
+    "action": "con",
+    "options": [],
+    "navigation": {
+      "0": "{back_menu}",
+      "00": "end"
+    }
+  },
+  "input_template": {
+    "name": "{menu_name}",
+    "message": "{prompt_message}",
+    "action": "con",
+    "inputConfig": {
+      "validation": {
+        "type": "{validation_type}",
+        "min": "{min_value}",
+        "max": "{max_value}"
+      },
+      "storeKey": "{data_key}",
+      "handler": "{handler_name}",
+      "errorMessage": "{error_message}"
+    },
+    "navigation": {
+      "0": "{back_menu}",
+      "00": "end"
+    }
+  }
+}

@@ -1,24 +1,13 @@
 {
   "name": "balance",
-  "message": "Select Account:",
+  "message": "Select Account:\n{account_list}\n\n0. Back\n00. Exit",
   "action": "con",
-  "inputConfig": {
-    "type": "account_selection",
-    "validation": {
-      "type": "numeric",
-      "min": 0,
-      "max": "{customer.accounts.length}"
-    },
-    "storeKey": "selected_account",
-    "nextMenu": "balance_confirmation"
+  "handler": "balance.processBalanceRequest",
+  "navigation": {
+    "0": "my_account",
+    "00": "end"
   },
-  "navigation": "0. Back\n00. Home\n000. Exit",
-  "onBack": "myaccount",
-  "onHome": "mobilebanking",
-  "onExit": "exit",
   "metadata": {
-    "requiresAuth": true,
-    "requiresAccounts": true,
-    "module": "balance"
+    "requiresAuth": true
   }
 }

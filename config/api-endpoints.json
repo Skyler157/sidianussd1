@@ -17,13 +17,14 @@
       "102": "Account blocked"
     }
   },
-  "BALANCE": {
+  "B-": {
+    "name": "BALANCE",
     "formId": "B-",
-    "merchantId": "BALANCE",
-    "cacheKey": "balance_{customerid}_{account}",
-    "cacheTTL": 60,
     "requiresAuth": true,
-    "chargeable": true
+    "chargeable": true,
+    "successStatus": ["000", "OK"],
+    "parseFunction": "parseBalanceResponse",
+    "parameters": ["MERCHANTID", "BANKACCOUNTID", "CUSTOMERID", "MOBILENUMBER"]
   },
   "STATEMENT": {
     "formId": "B-",

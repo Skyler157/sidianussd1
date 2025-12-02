@@ -1,0 +1,25 @@
+{
+  "name": "mobile_money",
+  "message": "Mobile Money\n\n1. Send to M-Pesa\n2. Send to Airtel Money\n3. Withdraw from Agent\n\n0. Back\n00. Exit",
+  "action": "con",
+  "options": [
+    {
+      "text": "Send to M-Pesa",
+      "nextMenu": "send_mpesa"
+    },
+    {
+      "text": "Send to Airtel Money",
+      "nextMenu": "send_airtel"
+    },
+    {
+      "text": "Withdraw from Agent",
+      "nextMenu": "withdraw_agent"
+    }
+  ],
+  "navigation": {
+    "0": "main_menu",
+    "00": "end",
+    "onBack": "main_menu",
+    "onExit": "end"
+  }
+}

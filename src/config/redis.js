@@ -24,6 +24,7 @@ class RedisService {
         });
 
         this.isReady = false;
+        this.connectionPromise = null;
         
         this.client.on('ready', () => {
             this.isReady = true;
@@ -39,14 +40,43 @@ class RedisService {
             console.log('[Redis] Node added to cluster');
         });
 
-        // Connect immediately
-        this.client.connect().catch(err => {
+        // Connect immediately and store the promise
+        this.connectionPromise = this.client.connect().catch(err => {
             console.error('[Redis] Connection failed:', err.message);
+            throw err;
         });
+    }
+
+    // Wait for connection to be ready
+    async waitForConnection(timeout = 10000) {
+        if (this.isReady) {
+            return true;
+        }
+        
+        if (this.connectionPromise) {
+            // Wait for the initial connection
+            try {
+                await Promise.race([
+                    this.connectionPromise,
+                    new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('Redis connection timeout')), timeout)
+                    )
+                ]);
+                return true;
+            } catch (error) {
+                console.error('[Redis] Wait for connection failed:', error.message);
+                return false;
+            }
+        }
+        
+        // If no connection promise yet, wait a bit
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        return this.isReady;
     }
 
     async set(key, value, ttlSeconds = null) {
         try {
+            await this.waitForConnection();
             if (ttlSeconds) {
                 return await this.client.set(key, value, { EX: ttlSeconds });
             }
@@ -59,6 +89,7 @@ class RedisService {
 
     async get(key) {
         try {
+            await this.waitForConnection();
             return await this.client.get(key);
         } catch (err) {
             console.error('[Redis] GET error:', err.message);
@@ -68,6 +99,7 @@ class RedisService {
 
     async del(key) {
         try {
+            await this.waitForConnection();
             return await this.client.del(key);
         } catch (err) {
             console.error('[Redis] DEL error:', err.message);
@@ -77,6 +109,7 @@ class RedisService {
 
     async healthCheck() {
         try {
+            await this.waitForConnection();
             await this.client.set('health_check', 'test', { EX: 1 });
             return { status: 'healthy', message: 'Redis Cluster is ready' };
         } catch (err) {
@@ -86,6 +119,7 @@ class RedisService {
 
     async testConnection() {
         try {
+            await this.waitForConnection();
             const testKey = 'redis_test_' + Math.random().toString(36).substring(7);
             const testValue = 'test_value';
 
@@ -108,6 +142,7 @@ class RedisService {
 
     async disconnect() {
         try {
+            await this.waitForConnection();
             await this.client.quit();
             console.log('[Redis] Disconnected');
         } catch (err) {

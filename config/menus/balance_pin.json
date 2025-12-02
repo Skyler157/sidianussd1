@@ -1,0 +1,14 @@
+{
+  "name": "balance_pin",
+  "message": "Enter your PIN to check balance:\n\n0. Back\n00. Exit",
+  "action": "con",
+  "handler": "balance.processBalancePin",
+  "navigation": {
+    "0": "balance",
+    "00": "end"
+  },
+  "metadata": {
+    "requiresAuth": true,
+    "isPinEntry": true
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "forgot_pin_info",
+  "message": "PIN Reset Information\n\n Visit any Sidian Bank branch with your ID\n\n0. Back\n00. Exit",
+  "action": "con",
+  "navigation": {
+    "0": "home",
+    "00": "end"
+  },
+  "metadata": {
+    "isInfoScreen": true
+  }
+}

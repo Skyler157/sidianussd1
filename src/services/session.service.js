@@ -1,6 +1,7 @@
+// src/services/session.service.js
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment-timezone');
-const redisService = require('../config/redis'); // Updated path
+const redisService = require('../config/redis');
 
 class SessionService {
   constructor() {
@@ -9,11 +10,41 @@ class SessionService {
     this.sessionPrefix = process.env.REDIS_SESSION_PREFIX || 'ussd:session';
   }
 
-  async ensureConnection() {
-    if (!redisService.isReady) {
-      throw new Error('Redis is not ready');
+  async store(msisdn, sessionId, shortcode, key, value) {
+    try {
+      await this.ensureConnection();
+      const sessionKey = this.getSessionKey(msisdn, sessionId, shortcode);
+      const dataKey = `${sessionKey}:${key}`;
+      
+      await redisService.set(dataKey, JSON.stringify(value), this.ttl);
+      return value;
+    } catch (error) {
+      console.error('Store error:', error.message);
+      throw error;
     }
-    return true;
+  }
+
+  // ... keep other methods the same
+  async ensureConnection() {
+    const maxRetries = 3;
+    const retryDelay = 1000;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const connected = await redisService.waitForConnection(5000);
+        if (connected) {
+          return true;
+        }
+      } catch (error) {
+        console.log(`Redis connection attempt ${attempt}/${maxRetries} failed:`, error.message);
+      }
+      
+      if (attempt < maxRetries) {
+        await new Promise(resolve => setTimeout(resolve, retryDelay));
+      }
+    }
+    
+    throw new Error('Redis is not ready after multiple retries');
   }
 
   async createSession(msisdn, sessionId, shortcode) {
@@ -45,9 +76,11 @@ class SessionService {
       const startKey = `${sessionKey}:start`;
       await redisService.set(startKey, Date.now().toString(), this.ttl);
       
+      console.log('Session created for:', this.maskMsisdn(msisdn));
       return sessionData;
       
     } catch (error) {
+      console.error('Failed to create session:', error.message);
       throw error;
     }
   }
@@ -67,6 +100,7 @@ class SessionService {
       
       return session;
     } catch (error) {
+      console.error('Get session error:', error.message);
       return null;
     }
   }
@@ -87,20 +121,8 @@ class SessionService {
       
       return session;
     } catch (error) {
+      console.error('Update session error:', error.message);
       return null;
-    }
-  }
-
-  async store(msisdn, sessionId, shortcode, key, value) {
-    try {
-      await this.ensureConnection();
-      const sessionKey = this.getSessionKey(msisdn, sessionId, shortcode);
-      const dataKey = `${sessionKey}:${key}`;
-      
-      await redisService.set(dataKey, JSON.stringify(value), this.ttl);
-      return value;
-    } catch (error) {
-      throw error;
     }
   }
 
@@ -113,6 +135,7 @@ class SessionService {
       const data = await redisService.get(dataKey);
       return data ? JSON.parse(data) : null;
     } catch (error) {
+      console.error('Grab error:', error.message);
       return null;
     }
   }
@@ -126,6 +149,7 @@ class SessionService {
       const data = await redisService.get(dataKey);
       return data !== null;
     } catch (error) {
+      console.error('Possess error:', error.message);
       return false;
     }
   }
@@ -142,8 +166,10 @@ class SessionService {
       } else {
         await redisService.del(`${sessionKey}:${keys}`);
       }
+      return true;
     } catch (error) {
-      // Silently fail
+      console.error('Blank error:', error.message);
+      return false;
     }
   }
 
@@ -154,9 +180,10 @@ class SessionService {
       
       await redisService.del(sessionKey);
       await redisService.del(`${sessionKey}:start`);
-      
+      return true;
     } catch (error) {
-      // Silently fail
+      console.error('Clear session error:', error.message);
+      return false;
     }
   }
 
@@ -171,6 +198,7 @@ class SessionService {
       
       return Math.floor((Date.now() - parseInt(startTime)) / 1000);
     } catch (error) {
+      console.error('Get session time error:', error.message);
       return 0;
     }
   }
@@ -197,7 +225,7 @@ class SessionService {
         await this.updateSession(msisdn, sessionId, shortcode, session);
       }
     } catch (error) {
-      // Silently fail
+      console.error('Increment transaction count error:', error.message);
     }
   }
 
@@ -206,6 +234,7 @@ class SessionService {
       const session = await this.getSession(msisdn, sessionId, shortcode);
       return session ? session.transactionCount || 0 : 0;
     } catch (error) {
+      console.error('Get transaction count error:', error.message);
       return 0;
     }
   }

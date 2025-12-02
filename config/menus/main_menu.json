@@ -1,0 +1,40 @@
+{
+  "name": "main_menu",
+  "message": "Main Menu\n\n1. My Account\n2. Mobile Money\n3. Airtime\n4. Bill Payments\n5. Funds Transfer\n6. Change pin\n\n0. Back\n00. Exit",
+  "action": "con",
+  "options": [
+    {
+      "text": "My Account",
+      "nextMenu": "my_account"
+    },
+    {
+      "text": "Mobile Money",
+      "nextMenu": "mobile_money"
+    },
+    {
+      "text": "Airtime",
+      "nextMenu": "airtime"
+    },
+    {
+      "text": "Bill Payments",
+      "nextMenu": "bill_payments"
+    },
+    {
+      "text": "Funds Transfer",
+      "nextMenu": "funds_transfer"
+    },
+    {
+      "text": "Change pin",
+      "nextMenu": "change_pin"
+    }
+  ],
+  "navigation": {
+    "0": "main_menu", 
+    "00": "end",
+    "onBack": "main_menu",   
+    "onExit": "end"
+  },
+  "metadata": {
+    "requiresAuth": true
+  }
+}

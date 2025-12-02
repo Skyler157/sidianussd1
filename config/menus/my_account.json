@@ -1,0 +1,26 @@
+{
+  "name": "my_account",
+  "message": "My Account\n\n1. Account Balance\n2. Mini Statement\n3. Full Statement\n\n0. Back\n00. Exit",
+  "action": "con",
+  "options": [
+    {
+      "text": "Account Balance",
+      "nextMenu": "balance"
+    },
+    {
+      "text": "Mini Statement",
+      "nextMenu": "mini_statement"
+    },
+    {
+      "text": "Full Statement",
+      "nextMenu": "full_statement"
+    }
+  ],
+  "navigation": {
+    "0": "main_menu",
+    "00": "end"
+  },
+  "metadata": {
+    "requiresAuth": true
+  }
+}
